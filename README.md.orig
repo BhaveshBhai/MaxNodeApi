@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # express-firebase
 
 Simple Firebase Admin Server using NodeJS.
@@ -34,4 +35,6 @@ to integrate with 3rd party services, or maybe custom token, or you need server-
 
 ## License
 MIT
-
+=======
+# MaxNodeApi
+>>>>>>> bd68a25b2560bafff08438ee9ee671d5d93278dd
