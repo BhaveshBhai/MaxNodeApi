@@ -1,7 +1,7 @@
 var exports = require('../dist/FirebaseClient');
 var FirebaseClient = exports.default;
 
-var keyFilename = "./src/serviceAccountKey.json";
+var keyFilename = "./src/captoore-firebase-adminsdk-qkvs2-309af7e476.json";
 var client = new FirebaseClient('https://cate-c7924.firebaseio.com/',{ auth: '4B9YPJOrs20quLBHVWvvw0NeXeunRjERY7TEWqa2' });
 
 var nock = require('nock')
@@ -14,7 +14,7 @@ var storage = require('@google-cloud/storage');
 
 //Image
 var storage = require('@google-cloud/storage');
-var keyFilename = "./src/serviceAccountKey.json";
+var keyFilename = "./src/captoore-firebase-adminsdk-qkvs2-309af7e476.json";
 var URL = '';
 const projectId = "cate-c7924" //replace with your project id
 const bucketName = `${projectId}.appspot.com`;
