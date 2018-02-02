@@ -34,4 +34,3 @@ to integrate with 3rd party services, or maybe custom token, or you need server-
 
 ## License
 MIT
-

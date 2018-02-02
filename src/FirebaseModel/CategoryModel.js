@@ -2,7 +2,7 @@ var exports = require('../dist/FirebaseClient');
 var FirebaseClient = exports.default;
 
 var keyFilename = "./src/captoore-firebase-adminsdk-qkvs2-309af7e476.json";
-var client = new FirebaseClient('https://cate-c7924.firebaseio.com/',{ auth: '4B9YPJOrs20quLBHVWvvw0NeXeunRjERY7TEWqa2' });
+var client = new FirebaseClient('https://captoore.firebaseio.com/',{ auth: '4B9YPJOrs20quLBHVWvvw0NeXeunRjERY7TEWqa2' });
 
 var nock = require('nock')
 var admin = require('firebase-admin');
@@ -10,19 +10,17 @@ var async = require('async');
 var firebase = require('firebase');
 var storage = require('@google-cloud/storage');
 
-
-
 //Image
 var storage = require('@google-cloud/storage');
 var keyFilename = "./src/captoore-firebase-adminsdk-qkvs2-309af7e476.json";
 var URL = '';
-const projectId = "cate-c7924" //replace with your project id
+const projectId = "captoore" //replace with your project id
 const bucketName = `${projectId}.appspot.com`;
 const gcs = require('@google-cloud/storage')({ projectId,keyFilename});
 const bucket = gcs.bucket(bucketName);
 
 //Get all Data
-module.exports.GetTopicDataAll = function GetTopics() {
+module.exports.GetTopicDataAll = function GetTopicDataAll() {
     var Result = client.get('diary')
         .then(res => res.json(res))
         .then(json => {
@@ -35,6 +33,18 @@ module.exports.GetTopicDataAll = function GetTopics() {
     return Result;
 }
 
+//Update html page link
+module.exports.UpdateHtmlPageLink = function UpdateHtmlPageLink(LinkData,CategoryName) {
+   
+    var db = admin.database();
+    var ref = db.ref("diary");
+    var usersRef = ref.child(CategoryName);
+    usersRef.update({
+        "link": LinkData,
+        "active":"YES"
+      });   
+    return "yes";
+}
 
 //Get topic wise data
 module.exports.GetTopicData = function GetTopicData(TopicName) {
@@ -58,8 +68,10 @@ module.exports.GetImageData =async function GetImageData(TopicData) {
         var topic = key;
         if (item.active == undefined) {
             var Active = "NO";
+            var link="";
         } else {
             var Active = item.active;
+            var link=item.link;
         }
         async.forEach(item, function (subtopic, callback) {
             var fileName = subtopic.URL
@@ -79,7 +91,8 @@ module.exports.GetImageData =async function GetImageData(TopicData) {
                         Location: subtopic.Location,
                         Subtopic: subtopic.Subtopic,
                         Time: subtopic.Time,
-                        categoryActive: Active
+                        categoryActive: Active,
+                        link: link
                     }
                     urlWithTopicData.push(ImageArray)
                 });

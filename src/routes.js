@@ -38,6 +38,7 @@ router.get('/api/category',async (req, res) => {
             console.log("Cannot write file ", e);
         }
         var html_dir = __dirname + '/htmlPages/' + PageName + '.html';
+        var UpdateLink=await  cate.UpdateHtmlPageLink(html_dir,PageName);
          res.send(html_dir);
          });
      
